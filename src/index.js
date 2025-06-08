@@ -1,30 +1,7 @@
-//import "./node_modules/jsuites/dist/jsuites.js"
-//import "./node_modules/jspreadsheet-ce/dist/index.js"
-
-//import {jspreadsheet} from "../node_modules/jspreadsheet-ce/dist/index.d.ts"
 import jspreadsheet from 'jspreadsheet-ce/dist/index.js';
-//import jspreadsheetCSS from "jspreadsheet-ce/dist/jspreadsheet.css" with { type: "css" };
-//import jspreadsheetThemesCSS from "jspreadsheet-ce/dist/jspreadsheet.themes.css" with { type: "css" };
-//import jsutesCSS from "jsuites/dist/jsuites.css" with { type: "css" };
-
 import jspreadsheetCSS from "jspreadsheet-ce/dist/jspreadsheet.css?inline"
 import jspreadsheetThemesCSS from "jspreadsheet-ce/dist/jspreadsheet.themes.css?inline"
 import jsutesCSS from "jsuites/dist/jsuites.css?inline"
-
-//import 'jspreadsheet-ce/dist/jspreadsheet.css';
-//import 'jspreadsheet-ce/dist/jspreadsheet.themes.css';
-//import 'jsuites/dist/jsuites.css';
-
-//const url = import.meta.url
-//const cssMainPath = url.split("/").slice(0,-2).join("/")+"/node_modules/jspreadsheet-ce/dist/jspreadsheet.css"
-//const cssThemePath = url.split("/").slice(0,-2).join("/")+"/node_modules/jspreadsheet-ce/dist/jspreadsheet.themes.css"
-//const cssJsuitesPath = url.split("/").slice(0,-2).join("/")+"/node_modules/jsuites/dist/jsuites.css"
-
-//import "../node_modules/jspreadsheet-ce/dist/jspreadsheet.css"
-//import "../node_modules/jspreadsheet-ce/dist/jspreadsheet.themes.css"
-//import "../node_modules/jsuites/dist/jsuites.css"
-
-
 
 export const TAG_NAME = "neco-jspreadsheet"
 const createHTML = (params) => `
@@ -51,13 +28,6 @@ ${jsutesCSS}
 <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
 <div id="jspreadsheet"> </div>
 `
-
-//<link rel="stylesheet" href=${cssJsuitesPath}>
-//<link rel="stylesheet" href=${cssThemePath}>
-//<link rel="stylesheet" href=${cssMainPath}>
-
-//<link rel="stylesheet" href=${cssThemePath}>
-//<link rel="stylesheet" href=${cssDatatablesPath}>
 
 export const CustomElem = class extends HTMLElement {
   constructor(){
@@ -97,7 +67,10 @@ export const CustomElem = class extends HTMLElement {
     this.setContents(contents)
   }
   setContents(contents){
-    this.jsp?.destroy()
+    if(this.jsp){
+      this.divElem.innerHTML = ""
+      this.jsp = null
+    }
     const rect = this.shadow.host.getBoundingClientRect()
     const width  = rect.width
     const height = rect.height
@@ -112,16 +85,7 @@ export const CustomElem = class extends HTMLElement {
     this.shadow.host.onblur=(e)=>{
         jsp.forEach(v=>v.resetSelection())
     }
-    this.resize() 
-  }
-  getData(){
-    return this.jsp.getData()
-  }
-  set data(data){
-    this.setData(data)
-  }
-  setData(data){
-    this.jsp.setData(data)
+    this.resize(width, height) 
   }
   resize(width, height){
     if(!this.jsp)return

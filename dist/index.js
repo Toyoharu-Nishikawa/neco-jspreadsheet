@@ -12100,24 +12100,13 @@ ${jsutesCSS}
     this.setContents(n);
   }
   setContents(n) {
-    this.jsp?.destroy();
-    const g = this.shadow.host.getBoundingClientRect();
-    g.width, g.height;
-    const o = {
+    this.jsp && (this.divElem.innerHTML = "", this.jsp = null);
+    const g = this.shadow.host.getBoundingClientRect(), o = g.width, p = g.height, C = {
       root: this.shadow
-    }, p = Object.assign(o, n), C = jspreadsheet(this.divElem, p);
-    this.jsp = C, this.shadow.host.onblur = (_) => {
-      C.forEach((G) => G.resetSelection());
-    }, this.resize();
-  }
-  getData() {
-    return this.jsp.getData();
-  }
-  set data(n) {
-    this.setData(n);
-  }
-  setData(n) {
-    this.jsp.setData(n);
+    }, _ = Object.assign(C, n), G = jspreadsheet(this.divElem, _);
+    this.jsp = G, this.shadow.host.onblur = (z) => {
+      G.forEach((m) => m.resetSelection());
+    }, this.resize(o, p);
   }
   resize(n, g) {
     if (!this.jsp) return;
