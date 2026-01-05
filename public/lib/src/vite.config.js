@@ -4,7 +4,7 @@ import { viteSingleFile } from 'vite-plugin-singlefile'
 export default defineConfig({
   build: {
     lib: {
-      entry: 'src/index.js',
+      entry: './index.js',
       formats: ['es'],
       fileName: 'index',
       name: 'MySpreadsheet'
@@ -12,6 +12,7 @@ export default defineConfig({
     target: 'esnext',
     assetsInlineLimit: Infinity, 
     cssCodeSplit: false,
+    outDir: "../dist",
     rollupOptions: {
       output: {
         inlineDynamicImports: true,

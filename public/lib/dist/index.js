@@ -9063,7 +9063,7 @@ function requireDist$1() {
 }
 var dist = dist$3.exports, hasRequiredDist;
 function requireDist() {
-  return hasRequiredDist || (hasRequiredDist = 1, function(module, exports) {
+  return hasRequiredDist || (hasRequiredDist = 1, function(module, exports$1) {
     if (!jSuites && typeof commonjsRequire == "function")
       var jSuites = requireJsuites();
     if (!formula && typeof commonjsRequire == "function")
@@ -12062,6 +12062,9 @@ const jspreadsheet = /* @__PURE__ */ getDefaultExportFromCjs(distExports), jspre
 /*  height: 100%;
   width: 100%;
   */
+  display:grid;
+  grid-template-rows: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
 }
 #jspreadsheet{
   display:flex;
@@ -12083,15 +12086,29 @@ ${jsutesCSS}
     super();
   }
   connectedCallback() {
-    const n = this.attachShadow({ mode: "open" });
-    this.shadow = n;
-    const g = createHTML();
-    n.setHTMLUnsafe(g);
-    const o = n.querySelector("#jspreadsheet");
-    this.divElem = o, new ResizeObserver((C) => {
-      const G = C[0].target.getBoundingClientRect(), z = G.width, m = G.height;
-      this.resize(z, m);
-    }).observe(this.shadow.host);
+    const n = [["", "", ""], ["", "", ""], ["", "", ""]], g = [
+      { type: "text", title: "A" },
+      { type: "text", title: "B" },
+      { type: "text", title: "C" }
+    ], o = this.attachShadow({ mode: "open" });
+    this.shadow = o;
+    const p = createHTML();
+    o.setHTMLUnsafe(p);
+    const C = o.querySelector("#jspreadsheet");
+    this.divElem = C, new ResizeObserver((G) => {
+      const m = G[0].target.getBoundingClientRect(), s = m.width, w = m.height;
+      this.resize(s, w);
+    }).observe(this.shadow.host), this.contents = {
+      worksheets: [
+        {
+          tableOverflow: !0,
+          tableWidth: "auto",
+          tableHeight: "auto",
+          data: n,
+          columns: g
+        }
+      ]
+    };
   }
   get contents() {
     return this._contents;

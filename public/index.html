@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>js dashboard</title>
+  <style>
+    body {
+      width: 100vw;
+      height: 100vh;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+
+  <script type="importmap">
+    {
+      "imports": {
+        "@/": "./"
+      }
+    }
+  </script>
+  <script type="module">
+    import {TAG_NAME as root} from "./index.js"
+    const elem = document.createElement(root)
+    document.body.appendChild(elem)
+    window.addEventListener("load", () => document.body.style="visibilily:visible;")
+  </script>
+</head>
+<body style="visibility: hidden;">
+</body>
+</html>

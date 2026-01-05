@@ -11,6 +11,9 @@ const createHTML = (params) => `
 /*  height: 100%;
   width: 100%;
   */
+  display:grid;
+  grid-template-rows: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
 }
 #jspreadsheet{
   display:flex;
@@ -34,8 +37,8 @@ export const CustomElem = class extends HTMLElement {
     super()
   }
   connectedCallback() {
-    const defaultData = [["","",""],["","",""],["","",""]]
-    const defaultColumns = [
+    const data = [["","",""],["","",""],["","",""]]
+    const columns = [
       {type:"text", title:"A"},
       {type:"text", title:"B"},
       {type:"text", title:"C"},
@@ -59,6 +62,17 @@ export const CustomElem = class extends HTMLElement {
     })
     resizeObserver.observe(this.shadow.host)
  
+    this.contents= {
+      worksheets:[
+        {
+          tableOverflow:true,
+          tableWidth:"auto",
+          tableHeight:"auto",
+          data,
+          columns,
+        },
+      ]
+    }
   }
   get contents(){
     return this._contents
